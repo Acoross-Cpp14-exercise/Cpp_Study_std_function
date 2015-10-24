@@ -165,5 +165,7 @@ void main()
 	}
 
 
+	cout << "git ignore test" << endl;
+
 	system("pause");
 }

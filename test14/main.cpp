@@ -100,14 +100,52 @@ private:
 	int* a;
 };
 
+class IHaveArray
+{
+public:
+	int arr[200];
+};
 
+void GiveArrayAsArgument(IHaveArray arr)	// arr 객체가 복사생성되며 arr.arr 도 복사되었다.
+{
+	cout << arr.arr[0] << endl;
+	size_t siz = _countof(arr.arr);
+	if (siz > 0)
+		cout << arr.arr[siz - 1] << endl;
 
+	arr.arr[0] = 200;
+}
+
+void PassArrayByValue(int arr[200])		// reference 로 넘어간다. 사실 복사되지 않는다.
+{
+	cout << arr[0] << endl;
+	cout << arr[199] << endl;
+	arr[0] = 200;
+}
 
 void main()
 {
 	//CTestMyFunction::TestMyFunction();
 	//EnumTester::TestEnumFunc();
 	
+	int rarr[200];
+	rarr[0] = 1;
+	rarr[199] = 200;
+	PassArrayByValue(rarr);
+	cout << rarr[0] << endl;
+	
+	IHaveArray arr;
+
+	for (int i = 0; i < _countof(arr.arr); ++i)
+	{
+		arr.arr[i] = i;
+	}
+
+	IHaveArray arr2 = arr;	// class 내부의 array 값이 복사된다...
+
+	GiveArrayAsArgument(arr);
+
+	cout << arr.arr[0] << endl;
 
 	auto lambda = []()
 	{
